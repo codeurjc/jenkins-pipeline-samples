@@ -1,0 +1,10 @@
+@Library('codeurjc')
+import es.urjc.etsii.code.hello.Hello
+
+node {
+
+    stage('first') {
+        Hello h = new Hello();
+        echo h.hello('Jenkins')
+    }
+}

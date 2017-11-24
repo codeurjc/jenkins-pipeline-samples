@@ -1,0 +1,28 @@
+pipeline {
+  agent any
+  stages {
+    stage('Prepara') {
+        steps {
+            writeFile encoding: 'utf-8', file: 'artifact.txt', text: 'Hello, world!'
+            writeFile encoding: 'utf-8', file: 'logs.txt', text: 'Core dumped!'
+            //sh 'exit 1'
+        }
+    }
+  }
+  post {
+      changed {
+           emailext body: '''Hi Patxi,
+
+Your job ${BUILD_URL} changed state to ${currentBuild.result}.
+
+Cheers,
+Jenkins''', subject: 'Job ${JOB_NAME} changed status', to: 'patxi.gortazar@gmail.com'
+      }
+      unstable {
+          archiveArtifacts 'logs.txt'
+      }
+      success {
+          archiveArtifacts 'artifact.txt'
+      }
+  }
+}

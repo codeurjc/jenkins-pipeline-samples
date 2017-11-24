@@ -1,0 +1,9 @@
+node {
+    stage('First sample') {
+        build 'StepSyntaxArchiveArtifacts'
+    }
+    
+    stage('Second sample') {
+        build 'DeclarativePipeline'
+    }
+}

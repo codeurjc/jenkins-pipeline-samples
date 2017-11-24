@@ -1,0 +1,17 @@
+@Library('codeurjc')
+import es.urjc.etsii.code.hello.Hello
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('first') {
+            steps { 
+                script {
+                    Hello h = new Hello();
+                    echo h.hello('Jenkins')
+                }
+            }
+        }
+    }
+}
